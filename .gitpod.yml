@@ -1,12 +1,14 @@
-# Ref: https://github.com/gitpod-io/gitpod/issues/6283#issuecomment-1001043454
 tasks:
-  - init: ./configure && timeout 50m make -j16 || true
-  - init: pnpm i -g @node-core/utils
+  - name: aws cli
+    env:
+      AWS_CLI_AUTO_PROMPT=on-partial
+    before:
+    cd /workspace
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
+    aws --version
+    
 
-# Ref: https://www.gitpod.io/docs/prebuilds#github-specific-configuration
-github:
-  prebuilds:
-    # enable for pull requests coming from this repo (defaults to true)
-    pullRequests: false
-    # add a check to pull requests (defaults to true)
-    addCheck: false
+  
+
